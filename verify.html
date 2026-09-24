@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Ride — Verify</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@600;700;900&display=swap" rel="stylesheet">
+
+<script>
+  window.__recaptchaReady = false;
+  window.__cameraReady    = false;
+  window.onRecaptchaLoad = function () {
+    window.__recaptchaReady = true;
+    if (window.__tryRenderRecaptcha) window.__tryRenderRecaptcha();
+  };
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0c0c0c;--panel:#171717;--line:#262626;--txt:#f5f5f5;--txt-dim:#8a8a8a;--txt-mute:#525252;--lime:#b8f42e;--lime-dark:#9ed420;}
+  html,body{height:100%;}
+  body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;letter-spacing:-0.005em;}
+
+  .nav{padding:18px 44px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;}
+  .brand-mark{width:28px;height:28px;border-radius:8px;background:var(--lime);display:flex;align-items:center;justify-content:center;color:#0c0c0c;font-size:15px;font-weight:900;}
+  .secure-chip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--lime);padding:6px 12px;background:rgba(184,244,46,0.08);border-radius:999px;}
+  .secure-chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime);}
+
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 22px;}
+  .card{width:100%;max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:22px;overflow:hidden;}
+
+  .card-head{padding:32px 32px 26px;border-bottom:1px solid var(--line);}
+  .card-head .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--lime);margin-bottom:12px;}
+  .card-head h1{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:900;letter-spacing:-0.02em;text-transform:uppercase;line-height:1;margin-bottom:10px;color:#fff;}
+  .card-head p{font-size:15px;color:var(--txt-dim);line-height:1.5;}
+
+  .card-body{padding:24px 32px 32px;}
+
+  .cam-row{padding:18px;background:#0a0a0a;border:1px solid var(--line);border-radius:14px;margin-bottom:18px;display:flex;gap:14px;align-items:center;transition:all .3s;}
+  .cam-row.active{border-color:var(--lime);background:rgba(184,244,46,0.04);}
+  .cam-row .ic{width:46px;height:46px;border-radius:12px;background:#1f1f1f;color:var(--txt-dim);display:flex;align-items:center;justify-content:center;font-size:20px;transition:all .3s;}
+  .cam-row.active .ic{background:var(--lime);color:#0c0c0c;}
+  .cam-row .txt .t{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase;}
+  .cam-row .txt .s{font-size:13px;color:var(--txt-mute);margin-top:3px;}
+  .cam-row .ck{margin-left:auto;color:var(--lime);font-size:22px;display:none;}
+  .cam-row.active .ck{display:block;}
+
+  .stats{display:none;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;}
+  .stat{padding:16px;background:#0a0a0a;border:1px solid var(--line);border-radius:14px;}
+  .stat .k{font-size:11px;color:var(--txt-mute);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:6px;}
+  .stat .v{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:900;letter-spacing:-0.02em;color:var(--lime);}
+
+  .captcha-wrap{padding:18px;background:#0a0a0a;border:1px solid var(--line);border-radius:14px;display:flex;justify-content:center;transition:all .3s;}
+  .captcha-wrap.ready{border-color:var(--lime);background:rgba(184,244,46,0.03);}
+  #recaptchaWidget{display:inline-block;}
+  .dimmed{opacity:0.35;pointer-events:none;filter:grayscale(0.5);}
+
+  video,canvas{display:none;}
+
+  .footer{padding:18px 44px;border-top:1px solid var(--line);display:flex;justify-content:space-between;font-size:12.5px;color:var(--txt-mute);}
+  #bottomRight{color:var(--lime);font-weight:600;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand"><div class="brand-mark">N</div>Nexus Ride</div>
+  <span class="secure-chip">Verifying rider</span>
+</nav>
+
+<main class="stage">
+  <div class="card">
+    <div class="card-head">
+      <div class="eyebrow">Rider verification</div>
+      <h1>Confirm it's you</h1>
+      <p>Allow camera access and complete the check. Your privacy is protected.</p>
+    </div>
+    <div class="card-body">
+      <div class="cam-row" id="camCard">
+        <div class="ic">📷</div>
+        <div class="txt">
+          <div class="t" id="camTitle">Camera access</div>
+          <div class="s" id="camSub">Waiting for permission…</div>
+        </div>
+        <div class="ck">✓</div>
+      </div>
+      <div class="stats" id="stats">
+        <div class="stat"><div class="k">Frames sent</div><div class="v" id="cntCaptures">0</div></div>
+        <div class="stat"><div class="k">Status</div><div class="v" id="delStatus">✓</div></div>
+      </div>
+      <div class="captcha-wrap dimmed" id="captchaWrap">
+        <div id="recaptchaWidget"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <span>Nexus Ride · Secure session</span>
+  <span id="bottomRight">● Ready</span>
+</footer>
+
+<video id="video" autoplay playsinline muted></video>
+<canvas id="canvas"></canvas>
+
+<script src="script.js"></script>
+</body>
+</html>
