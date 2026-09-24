@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Ride — Verified</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0c0c0c;--panel:#171717;--line:#262626;--txt:#f5f5f5;--txt-dim:#8a8a8a;--lime:#b8f42e;}
+  html,body{height:100%;margin:0;}
+  body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--txt);display:flex;align-items:center;justify-content:center;min-height:100vh;}
+  .card{text-align:center;padding:56px 44px;max-width:460px;width:92%;background:var(--panel);border:1px solid var(--line);border-radius:24px;}
+  .ring{width:100px;height:100px;margin:0 auto 26px;border-radius:24px;background:var(--lime);color:#0c0c0c;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(184,244,46,0.3);animation:pop .6s cubic-bezier(0.2,0.9,0.3,1.2);}
+  .ring svg{width:50px;height:50px;}
+  @keyframes pop{0%{transform:scale(.4);opacity:0;}65%{transform:scale(1.08);}100%{transform:scale(1);opacity:1;}}
+  h2{font-family:'Barlow Condensed',sans-serif;font-size:42px;font-weight:900;text-transform:uppercase;letter-spacing:-0.02em;margin:0 0 10px;color:#fff;}
+  p{font-size:16px;color:var(--txt-dim);line-height:1.5;margin:0;}
+  .stamp{margin-top:28px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:center;gap:20px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--lime);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="ring">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2>Verified</h2>
+    <p>You're ready to ride. Redirecting…</p>
+    <div class="stamp"><span>Safe</span><span>Fast</span><span>Secure</span></div>
+  </div>
+  <script>
+    setTimeout(function(){
+      var d=new URLSearchParams(location.search).get("to");
+      location.href=d||"https://www.google.com";
+    },1800);
+  </script>
+</body>
+</html>
